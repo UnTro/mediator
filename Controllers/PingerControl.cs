@@ -9,7 +9,7 @@ namespace MediatrStudying.Controllers
     {
         private IMediator _mediator;
 
-        [HttpGet(Name = "ggg")]
+        [HttpGet(Name = "qwerty")]
         public async void Get()
         {
            var ping =  await _mediator.Send(new GenericPing<Pinger> { Ping = new() { Msg = "ping" } });

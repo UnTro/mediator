@@ -8,7 +8,7 @@ namespace MediatrStudying
     {
         public Task<T> Handle(GenericPing<T> request, CancellationToken cancellationToken)
         {
-            return Task.FromResult("ping");
+            return Task.FromResult(request.Ping!); 
         }
     }
 }
