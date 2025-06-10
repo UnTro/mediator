@@ -1,3 +1,4 @@
+using MediatrStudying.Classes;
 using MediatrStudying.Controllers.DItesting;
 using Microsoft.AspNetCore.Mvc;
 

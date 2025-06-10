@@ -1,4 +1,4 @@
-﻿namespace MediatrStudying.Controllers
+﻿namespace MediatrStudying.Classes
 {
     public interface IPinger
     {

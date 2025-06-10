@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace MediatrStudying.Controllers
+namespace MediatrStudying.Classes
 {
-     
+
     public class Pinger : IPinger
 
     {

@@ -1,4 +1,4 @@
-namespace MediatrStudying
+namespace MediatrStudying.Classes
 {
     public class WeatherForecast
     {

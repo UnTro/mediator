@@ -3,6 +3,8 @@ using MediatrStudying.Controllers.DItesting;
 using System.Text;
 //using MediatrStudying.Controllers.Moisture;
 using MediatR;
+using MediatrStudying.Controllers;
+using MediatrStudying.Classes;
 namespace MediatrStudying
 {
     public class Program 
@@ -13,7 +15,13 @@ namespace MediatrStudying
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterGenericHandlers = true;
+                cfg.RegisterServicesFromAssembly(typeof(GenericPing<>).Assembly);
+            });
+
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
