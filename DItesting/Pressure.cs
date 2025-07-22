@@ -1,4 +1,4 @@
-﻿namespace MediatrStudying.Controllers.DItesting
+﻿namespace MediatrStudying.DItesting
 {   public interface IPressure
     {
         public int PressureValue();

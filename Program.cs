@@ -5,12 +5,14 @@ using System.Text;
 using MediatR;
 using MediatrStudying.Controllers;
 using MediatrStudying.Classes;
+using Serilog;
 namespace MediatrStudying
 {
     public class Program 
     {
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration().WriteTo.Console().WriteTo.File("Log.txt", rollingInterval: RollingInterval.Hour, rollOnFileSizeLimit: true).CreateLogger();
 
             var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,9 @@ namespace MediatrStudying
                 cfg.RegisterServicesFromAssembly(typeof(GenericPing<>).Assembly);
             });
 
-
+            // adding serilog
+            //IPipelineBehavior behavior = builder.Build();
+            
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -32,6 +36,9 @@ namespace MediatrStudying
            // builder.Services.AddTransient<IPressure, Pressure>();
             builder.Services.AddWeatherFeatureServices();
             builder.Services.AddTransient<Temperature>();
+            builder.Services.AddTransient<IPingHandler, PingHandler>();
+            builder.Services.AddTransient<IPingHandler,AnalHandler>();
+            
             //---------------
             var app = builder.Build();
             
@@ -51,30 +58,9 @@ namespace MediatrStudying
 
             app.MapControllers();
             
-            //app.Run
-            //(
-
-            //    async context =>
-            //{
-            //    var sb = new StringBuilder();
-            //    sb.Append("<h1>Все сервисы</h1>");
-            //    sb.Append("<table>");
-            //    sb.Append("<tr><th>Тип</th><th>Lifetime</th><th>Реализация</th></tr>");
-            //    foreach (var svc in builder.Services)
-            //    {
-            //        sb.Append("<tr>");
-            //        sb.Append($"<td>{svc.ServiceType.FullName}</td>");
-            //        sb.Append($"<td>{svc.Lifetime}</td>");
-            //        sb.Append($"<td>{svc.ImplementationType?.FullName}</td>");
-            //        sb.Append("</tr>");
-            //    }
-            //    sb.Append("</table>");
-            //    context.Response.ContentType = "text/html;charset=utf-8";
-            //    await context.Response.WriteAsync(sb.ToString());
-            //}
             
-            //);
             app.Run();
+
         }
     }
 
